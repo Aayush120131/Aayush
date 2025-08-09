@@ -280,53 +280,46 @@
   © Saraswati Coaching centre— Kasiyona chowk,Rajnagar — Call: 9279731489 / 8789823718
 </footer>
 <script>
-function openWhatsApp() {
-    // Use the primary number from your contact info
-    const phoneNumber = "919279731489"; // 91 is India code, followed by number without 0
+function openWhatsApp(message = "") {
+    // Define both numbers in international format (without + or 00)
+    const numbers = [
+        "919279731489",  // primary number
+        "918789823718"   // secondary number
+    ];
+    
+    // Default message if none provided
     const defaultMessage = "Hello Saraswati Coaching Centre, I'm interested in the demo classes.";
+    const finalMessage = message || defaultMessage;
     
     // Detect if mobile or desktop
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    // Construct the proper WhatsApp URL
-    const whatsappUrl = isMobile 
-        ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(defaultMessage)}`
-        : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(defaultMessage)}`;
+    // Function to try opening WhatsApp
+    function tryOpenWhatsApp(index) {
+        if (index >= numbers.length) return; // No more numbers to try
+        
+        const whatsappUrl = isMobile 
+            ? `whatsapp://send?phone=${numbers[index]}&text=${encodeURIComponent(finalMessage)}`
+            : `https://web.whatsapp.com/send?phone=${numbers[index]}&text=${encodeURIComponent(finalMessage)}`;
+        
+        const win = window.open(whatsappUrl, '_blank');
+        
+        // Check if the window opened successfully (not always reliable)
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+            // Try the next number after a short delay
+            setTimeout(() => tryOpenWhatsApp(index + 1), 500);
+        }
+    }
     
-    // Open the link
-    window.open(whatsappUrl, '_blank');
-}
-
-function scrollToForm() {
-    document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth' });
-}
-
-function submitForm(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const classSel = document.getElementById('classSel').value;
-    const msg = document.getElementById('msg').value;
-    
-    const message = `New Registration:\nName: ${name}\nPhone: ${phone}\nClass: ${classSel}\nMessage: ${msg || 'None'}`;
-    
-    openWhatsAppWithMessage(message);
+    // Start with the first number
+    tryOpenWhatsApp(0);
 }
 
 function openWhatsAppWithMessage(message) {
-    const phoneNumber = "919279731489";
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    const whatsappUrl = isMobile 
-        ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
-        : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
+    openWhatsApp(message);
 }
 
-function resetForm() {
-    document.getElementById('leadForm').reset();
-}
+// Keep all your other functions the same (scrollToForm, submitForm, resetForm)
 </script>
 </body>
 </html>
