@@ -1,0 +1,365 @@
+My code
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>J.K Coaching Institute</title>
+<style>
+  :root{
+    --red:#d81e2c;
+    --deep-blue:#0b2b6b;
+    --accent:#f6c21a;
+    --card-bg: #fff;
+    --page-bg: linear-gradient(180deg,#f8f9fb,#ffffff);
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--page-bg);
+    color:#111;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  header{
+    background: linear-gradient(90deg,var(--deep-blue), #11327a 60%);
+    color:#fff;
+    padding:18px 16px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .brand {
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .logo{
+    width:72px;
+    height:72px;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--red),#ff6b6b);
+    display:grid;
+    place-items:center;
+    font-weight:800;
+    color:#fff;
+    font-size:18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+  .brand h1{
+    margin:0;
+    font-size:20px;
+    line-height:1;
+    letter-spacing:0.6px;
+  }
+  .brand p{margin:0;font-size:13px;opacity:0.95}
+
+  .contact-top{
+    margin-left:auto;
+    text-align:right;
+    font-weight:700;
+  }
+  .contact-top a{color:#fff;text-decoration:none;display:inline-block;margin-left:6px}
+  .contact-top .phone{display:block;font-size:18px}
+
+  main{max-width:1100px;margin:18px auto;padding:16px}
+
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px;
+    gap:18px;
+    align-items:stretch;
+  }
+
+  .card{
+    background:var(--card-bg);
+    border-radius:12px;
+    padding:18px;
+    box-shadow: 0 8px 30px rgba(15,30,60,0.08);
+  }
+
+  .hero-left h2{
+    margin:0 0 8px 0;
+    color:var(--deep-blue);
+    font-size:26px;
+  }
+  .tag{
+    display:inline-block;
+    padding:8px 12px;
+    margin-bottom:12px;
+    background:linear-gradient(90deg,var(--red),#ff4d4d);
+    color:#fff;
+    border-radius:24px;
+    font-weight:700;
+    font-size:14px;
+  }
+  .features{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .feature{
+    background:#f2f6ff;
+    color:var(--deep-blue);
+    padding:10px 12px;border-radius:8px;font-weight:600;font-size:14px;
+  }
+
+  .courses{
+    margin-top:14px;
+  }
+  .courses ul{padding-left:18px;margin:8px 0}
+  .cta-row{display:flex;gap:12px;margin-top:16px;align-items:center}
+  .btn{
+    background:var(--red);
+    color:#fff;padding:12px 14px;border-radius:8px;text-decoration:none;font-weight:700;
+    display:inline-flex;gap:8px;align-items:center;border:none;cursor:pointer;
+  }
+  .btn.secondary{
+    background:transparent;color:var(--deep-blue);border:2px solid var(--deep-blue);
+  }
+
+  /* right card */
+  .hero-right{display:flex;flex-direction:column;gap:12px;justify-content:flex-start}
+  .promo{
+    background:linear-gradient(90deg,#ffe7d9,#fff0f0);
+    border-radius:10px;padding:14px;font-weight:700;color:var(--deep-blue);
+    text-align:center;
+  }
+  .promo .star{display:inline-block;background:var(--accent);padding:6px 10px;border-radius:18px;margin:8px 0;font-weight:800}
+  .student{
+    display:flex;gap:12px;align-items:center;
+  }
+  .student .img{
+    width:110px;height:110px;border-radius:12px;background:linear-gradient(180deg,#dfefff,#ffffff);
+    display:grid;place-items:center;font-weight:700;color:var(--deep-blue);font-size:18px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  }
+
+  .info-list{margin-top:10px}
+  .info-list li{margin:8px 0;font-weight:600}
+
+  .contact-card{
+    display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:10px;
+    background:linear-gradient(180deg,#0b2b6b,#11327a);color:#fff;
+  }
+  .contact-card .numbers{font-size:16px;font-weight:800}
+  .whatsapp{
+    display:inline-flex;align-items:center;gap:10px;background:#25d366;padding:10px 12px;border-radius:8px;color:#fff;font-weight:700;text-decoration:none;
+  }
+
+  footer{max-width:1100px;margin:24px auto;padding:10px;color:#fff;text-align:center;background:linear-gradient(90deg,var(--deep-blue),#11327a);border-radius:8px}
+
+  /* responsive */
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr; }
+    .hero-right{order:-1}
+  }
+  @media (max-width:420px){
+    .brand h1{font-size:18px}
+    .logo{width:56px;height:56px;font-size:16px}
+    .contact-top{font-size:13px}
+  }
+
+  /* small helper for badges in Hindi */
+  .badge-h{
+    display:inline-block;background:var(--accent);padding:8px 12px;border-radius:20px;font-weight:800;color:#7b3f00;
+  }
+
+  /* form styles */
+  .lead-form{display:grid;gap:8px}
+  .lead-form input, .lead-form textarea{
+    padding:10px;border-radius:8px;border:1px solid #d7dfe9;font-size:14px;width:100%;
+  }
+  .note{font-size:13px;color:#333;opacity:0.9}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">J.K</div>
+    <div>
+      <h1>J.K Coaching Institute</h1>
+      <p>For B.S.E.B &amp; C.B.S.E — Classes 5th to 12th (Phy + English)</p>
+    </div>
+  </div>
+
+  <div class="contact-top">
+    <div style="font-size:13px;opacity:0.95">Free demo class — 2 days</div>
+    <div class="phone">📱 8529925351</div>
+    <div class="phone">📱 8207817612</div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="card hero-left">
+      <div class="tag">Special Classes: Navodaya • Netarhat • Sainik School • General Competition</div>
+      <h2>Quality tuition • Proven results</h2>
+      <div class="features" aria-hidden>
+        <div class="feature">Experienced Teachers</div>
+        <div class="feature">Board & Competitive Prep</div>
+        <div class="feature">Tricky techniques & shortcuts</div>
+        <div class="feature">All subjects covered</div>
+      </div>
+
+      <div class="courses">
+        <h3 style="margin-bottom:6px;color:var(--deep-blue)">Courses & Classes</h3>
+        <ul>
+          <li>Classes 5th to 10th (Complete syllabus)</li>
+          <li>11th & 12th — Physics + English (Subject tuition)</li>
+          <li>Intensive preparation for entrance tests and arts/IT streams</li>
+        </ul>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn" onclick="openWhatsApp()">📲 Contact on WhatsApp</button>
+        <button class="btn secondary" onclick="scrollToForm()">Register Now</button>
+        <div style="margin-left:auto" class="badge-h">फ्री नामांकन चालू है</div>
+      </div>
+
+      <div style="margin-top:14px;font-size:13px" class="note">
+        Director: Jatashankar Kumar — Diploma &amp; B.Sc Electrical (Eng.)<br>
+        Location: Ahirioliya, Saadh Baba Chowk
+      </div>
+    </div>
+
+    <aside class="hero-right">
+      <div class="card promo">
+        <div style="font-size:18px">🎯 Join J.K Coaching</div>
+        <div class="star">Free Demo Class</div>
+        <div style="margin-top:6px;font-size:14px">Two free demo classes — limited seats</div>
+      </div>
+
+      <div class="card student">
+        <div class="img">Student</div>
+        <div>
+          <div style="font-weight:800;color:var(--deep-blue);font-size:16px">Why students choose us</div>
+          <div style="margin-top:8px">
+            <ul class="info-list" style="padding-left:18px;margin:0;color:#333">
+              <li>Experienced teachers with board expertise</li>
+              <li>Focus on concept + exam strategy</li>
+              <li>Personal attention & performance tracking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div style="font-size:14px;opacity:0.9">Contact Number / WhatsApp</div>
+        <div class="numbers">📞 8529925351</div>
+        <div class="numbers">📞 8207817612</div>
+        <a class="whatsapp" href="#" onclick="openWhatsApp();return false;">Open WhatsApp</a>
+        <div style="margin-top:6px;font-size:13px;opacity:0.95">Send "Demo" to book your free class</div>
+      </div>
+    </aside>
+  </div>
+
+  <section style="margin-top:18px" class="card">
+    <h3 style="margin-top:0;color:var(--deep-blue)">Quick registration</h3>
+    <p class="note">Fill below and we'll contact you on WhatsApp to confirm demo class.</p>
+
+    <form id="leadForm" class="lead-form" onsubmit="submitForm(event)">
+      <input type="text" id="name" placeholder="Full name" required />
+      <input type="tel" id="phone" placeholder="Phone number (example: 8529925351)" pattern="[0-9]{10}" required />
+      <input type="text" id="classSel" placeholder="Class (e.g., 9th / 11th Physics)" />
+      <textarea id="msg" rows="3" placeholder="Any message (optional)"></textarea>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn" type="submit">Submit &amp; Contact</button>
+        <button class="btn secondary" type="button" onclick="resetForm()">Reset</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  © J.K Coaching Institute — Ahirioliya, Saadh Baba Chowk — Call: 8529925351 / 8207817612
+</footer>
+
+<script>
+  // UNIVERSAL WHATSAPP OPENER
+  function openWhatsApp() {
+    const phoneNumber = "919507889349"; // Primary number (91 is India code)
+    const fallbackNumber = "919507889349"; // Secondary number
+    
+    // Standard web links
+    const webLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent("Hello J.K Coaching, I want information about demo classes.")}`;
+    const fallbackWebLink = `https://wa.me/${fallbackNumber}?text=${encodeURIComponent("Hello J.K Coaching, I want information about demo classes.")}`;
+    
+    // App deep links
+    const androidLink = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent("Hello J.K Coaching")}`;
+    const iosLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
+    
+    // Device detection
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // Try primary number first
+    if (isAndroid) {
+      // Android - try app link first
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = androidLink;
+      document.body.appendChild(iframe);
+      
+      // Fallback to web if app not installed
+      setTimeout(() => {
+        if (!document.hidden) {
+          window.location.href = webLink;
+        }
+      }, 500);
+    } 
+    else if (isIOS) {
+      // iOS - try app link
+      window.location.href = iosLink;
+      setTimeout(() => {
+        if (!document.hidden) {
+          window.location.href = webLink;
+        }
+      }, 500);
+    } 
+    else {
+      // Desktop/browser fallback
+      window.open(webLink, '_blank');
+    }
+  }
+
+  function scrollToForm(){
+    document.getElementById('name').focus();
+    window.scrollTo({top: document.getElementById('leadForm').getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth'});
+  }
+
+  function submitForm(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var cls = document.getElementById('classSel').value.trim();
+    var msg = document.getElementById('msg').value.trim();
+
+    if(!/^[0-9]{10}$/.test(phone)){
+      alert('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    // Prepare WhatsApp message
+    const phoneIntl = "91" + phone;
+    const message = `New Registration:
+Name: ${name}
+Class: ${cls || 'Not specified'}
+Phone: ${phone}
+${msg ? 'Message: ' + msg : ''}`;
+
+    // Open WhatsApp with prefilled message
+    const webLink = `https://wa.me/918529925351?text=${encodeURIComponent(message)}`;
+    window.open(webLink, "_blank");
+
+    // Show confirmation
+    alert("Opening WhatsApp to send your details. Please confirm and send the message.");
+    resetForm();
+  }
+
+  function resetForm(){
+    document.getElementById('leadForm').reset();
+  }
+</script>
+</body>
+</html>
+
+Which i want to copy paste
