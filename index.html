@@ -279,23 +279,23 @@
   © Saraswati Coaching centre— Kasiyona chowk,Rajnagar — Call: 9279731489 / 8789823718
 </footer>
 <script>
+// WhatsApp opener with dual number fallback
 function openWhatsApp(message = "") {
-    // Define both numbers in international format (without + or 00)
     const numbers = [
-        "919279731489",  // primary number
-        "918789823718"   // secondary number
+        "919279731489",  // primary number (9279731489)
+        "918789823718"   // secondary number (8789623718)
     ];
     
-    // Default message if none provided
-    const defaultMessage = "Hello Saraswati Coaching Centre, I'm interested in the demo classes.";
+    const defaultMessage = "Hello Saraswati Coaching Centre, I'm interested in your classes.";
     const finalMessage = message || defaultMessage;
-    
-    // Detect if mobile or desktop
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    // Function to try opening WhatsApp
+
     function tryOpenWhatsApp(index) {
-        if (index >= numbers.length) return; // No more numbers to try
+        if (index >= numbers.length) {
+            // Ultimate fallback - regular phone call
+            window.location.href = `tel:${numbers[0].substring(2)}`;
+            return;
+        }
         
         const whatsappUrl = isMobile 
             ? `whatsapp://send?phone=${numbers[index]}&text=${encodeURIComponent(finalMessage)}`
@@ -303,22 +303,62 @@ function openWhatsApp(message = "") {
         
         const win = window.open(whatsappUrl, '_blank');
         
-        // Check if the window opened successfully (not always reliable)
-        if (!win || win.closed || typeof win.closed === 'undefined') {
-            // Try the next number after a short delay
-            setTimeout(() => tryOpenWhatsApp(index + 1), 500);
-        }
+        // Check if window opened (not 100% reliable but best effort)
+        setTimeout(() => {
+            if (!win || win.closed || typeof win.closed === 'undefined') {
+                tryOpenWhatsApp(index + 1); // Try next number
+            }
+        }, 300);
     }
     
-    // Start with the first number
-    tryOpenWhatsApp(0);
+    tryOpenWhatsApp(0); // Start with first number
 }
 
-function openWhatsAppWithMessage(message) {
-    openWhatsApp(message);
+// Form submission handler
+function submitForm(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const formData = {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        class: document.getElementById('classSel').value.trim(),
+        message: document.getElementById('msg').value.trim()
+    };
+    
+    // Validate phone number
+    if (!/^\d{10}$/.test(formData.phone)) {
+        alert("Please enter a valid 10-digit phone number");
+        return;
+    }
+    
+    // Construct WhatsApp message
+    const whatsappMessage = 
+        "📚 Saraswati Coaching Registration:\n\n" +
+        `👤 Name: ${formData.name}\n` +
+        `📱 Phone: ${formData.phone}\n` +
+        `🏫 Class: ${formData.class || "Not specified"}\n` +
+        `✉️ Message: ${formData.message || "None"}\n\n` +
+        "Please contact me to confirm my demo class.";
+    
+    // Open WhatsApp with form data
+    openWhatsApp(whatsappMessage);
+    
+    // Optional: Reset form after submission
+    // document.getElementById('leadForm').reset();
 }
 
-// Keep all your other functions the same (scrollToForm, submitForm, resetForm)
-</script>
+// Form reset handler
+function resetForm() {
+    document.getElementById('leadForm').reset();
+}
+
+// Scroll to form function
+function scrollToForm() {
+    document.getElementById('leadForm').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+</script>  
 </body>
-          </html>
+</html>
