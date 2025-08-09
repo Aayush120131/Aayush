@@ -279,95 +279,60 @@
 <footer>
   © Saraswati Coaching centre— Kasiyona chowk,Rajnagar — Call: 9279731489 / 8789823718
 </footer>
-
 <script>
-  // UNIVERSAL WHATSAPP OPENER
-  function openWhatsApp() {
-  //  const phoneNumber = "918789823718"; 
-    //Primary number (91 is India code)
-   const phoneNumber = "919279311489";
-    const fallbackNumber = "918789823718"; // Secondary number
-    
-    // Standard web links
-    const webLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent("Hello Saraswati Coaching Centre, I want information about demo classes.")}`;
-    const fallbackWebLink = `https://wa.me/${fallbackNumber}?text=${encodeURIComponent("Hello Saraswati Coaching Centre, I want information about demo classes.")}`;
-    
-    // App deep links
-    const androidLink = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent("Hello Saraswati Coaching")}`;
-    const iosLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
-    
-    // Device detection
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+// UNIVERSAL WHATSAPP OPENER WITH FALLBACK
+function openWhatsApp(primaryNumber, fallbackNumber, message) {
+    // Detect device type
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobile = /android|iphone|ipad|ipod/.test(userAgent);
+
     // Try primary number first
-    if (isAndroid) {
-      // Android - try app link first
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = androidLink;
-      document.body.appendChild(iframe);
-      
-      // Fallback to web if app not installed
-      setTimeout(() => {
-        if (!document.hidden) {
-          window.location.href = webLink;
-        }
-      }, 500);
-    } 
-    else if (isIOS) {
-      // iOS - try app link
-      window.location.href = iosLink;
-      setTimeout(() => {
-        if (!document.hidden) {
-          window.location.href = webLink;
-        }
-      }, 500);
-    } 
-    else {
-      // Desktop/browser fallback
-      window.open(webLink, '_blank');
-    }
-  }
+    let targetNumber = primaryNumber || fallbackNumber;
 
-  function scrollToForm(){
-    document.getElementById('name').focus();
-    window.scrollTo({top: document.getElementById('leadForm').getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth'});
-  }
-
-  function submitForm(e){
-    e.preventDefault();
-    var name = document.getElementById('name').value.trim();
-    var phone = document.getElementById('phone').value.trim();
-    var cls = document.getElementById('classSel').value.trim();
-    var msg = document.getElementById('msg').value.trim();
-
-    if(!/^[0-9]{10}$/.test(phone)){
-      alert('Please enter a valid 10-digit phone number.');
-      return;
+    // If primary is not set, use fallback
+    if (!primaryNumber && fallbackNumber) {
+        targetNumber = fallbackNumber;
     }
 
-    // Prepare WhatsApp message
-    const phoneIntl = "91" + phone;
-    const message = `New Registration:
-Name: ${name}
-Class: ${cls || 'Not specified'}
-Phone: ${phone}
-${msg ? 'Message: ' + msg : ''}`;
+    // Construct WhatsApp link
+    const encodedMessage = encodeURIComponent(message || "");
+    let whatsappURL = "";
 
-    // Open WhatsApp with prefilled message
-    const 69O0a1+×#6 = `https://wa.me/918529925351?text=${encodeURIComponent(message)}`;
-    window.open(webLink, "_blank");
+    if (isMobile) {
+        // Deep link for mobile apps
+        whatsappURL = `whatsapp://send?phone=${targetNumber}&text=${encodedMessage}`;
+    } else {
+        // WhatsApp Web link for desktop
+        whatsappURL = `https://web.whatsapp.com/send?phone=${targetNumber}&text=${encodedMessage}`;
+    }
 
-    // Show confirmation
-    alert("Opening WhatsApp to send your details. Please confirm and send the message.");
-    resetForm();
-  }
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+}
 
-  function resetForm(){
-    document.getElementById('leadForm').reset();
-  }
+// FORM SUBMISSION HANDLER
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("registrationForm");
+
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const course = document.getElementById("course").value.trim();
+
+            // Construct message
+            const message = `Hello Saraswati Coaching Centre, I want to register.\nName: ${name}\nPhone: ${phone}\nCourse: ${course}`;
+
+            // Open WhatsApp with details
+            openWhatsApp("919279311489", "918789823718", message);
+        });
+    }
+});
 </script>
+>
 </body>
 </html>
 
