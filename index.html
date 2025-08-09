@@ -280,59 +280,54 @@
   © Saraswati Coaching centre— Kasiyona chowk,Rajnagar — Call: 9279731489 / 8789823718
 </footer>
 <script>
-// UNIVERSAL WHATSAPP OPENER WITH FALLBACK
-function openWhatsApp(primaryNumber, fallbackNumber, message) {
-    // Detect device type
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobile = /android|iphone|ipad|ipod/.test(userAgent);
-
-    // Try primary number first
-    let targetNumber = primaryNumber || fallbackNumber;
-
-    // If primary is not set, use fallback
-    if (!primaryNumber && fallbackNumber) {
-        targetNumber = fallbackNumber;
-    }
-
-    // Construct WhatsApp link
-    const encodedMessage = encodeURIComponent(message || "");
-    let whatsappURL = "";
-
-    if (isMobile) {
-        // Deep link for mobile apps
-        whatsappURL = `whatsapp://send?phone=${targetNumber}&text=${encodedMessage}`;
-    } else {
-        // WhatsApp Web link for desktop
-        whatsappURL = `https://web.whatsapp.com/send?phone=${targetNumber}&text=${encodedMessage}`;
-    }
-
-    // Open WhatsApp
-    window.open(whatsappURL, "_blank");
+function openWhatsApp() {
+    // Use the primary number from your contact info
+    const phoneNumber = "919279731489"; // 91 is India code, followed by number without 0
+    const defaultMessage = "Hello Saraswati Coaching Centre, I'm interested in the demo classes.";
+    
+    // Detect if mobile or desktop
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // Construct the proper WhatsApp URL
+    const whatsappUrl = isMobile 
+        ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(defaultMessage)}`
+        : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(defaultMessage)}`;
+    
+    // Open the link
+    window.open(whatsappUrl, '_blank');
 }
 
-// FORM SUBMISSION HANDLER
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("registrationForm");
+function scrollToForm() {
+    document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth' });
+}
 
-    if (form) {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
+function submitForm(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const classSel = document.getElementById('classSel').value;
+    const msg = document.getElementById('msg').value;
+    
+    const message = `New Registration:\nName: ${name}\nPhone: ${phone}\nClass: ${classSel}\nMessage: ${msg || 'None'}`;
+    
+    openWhatsAppWithMessage(message);
+}
 
-            // Collect form data
-            const name = document.getElementById("name").value.trim();
-            const phone = document.getElementById("phone").value.trim();
-            const course = document.getElementById("course").value.trim();
+function openWhatsAppWithMessage(message) {
+    const phoneNumber = "919279731489";
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    const whatsappUrl = isMobile 
+        ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
+        : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
 
-            // Construct message
-            const message = `Hello Saraswati Coaching Centre, I want to register.\nName: ${name}\nPhone: ${phone}\nCourse: ${course}`;
-
-            // Open WhatsApp with details
-            openWhatsApp("919279311489", "918789823718", message);
-        });
-    }
-});
+function resetForm() {
+    document.getElementById('leadForm').reset();
+}
 </script>
->
 </body>
 </html>
 
